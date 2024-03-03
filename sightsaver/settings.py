@@ -24,9 +24,9 @@ env.read_env(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =env('SECRET_KEY') 
+SECRET_KEY =os.getenv('SECRET_KEY') 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -84,12 +84,12 @@ WSGI_APPLICATION = 'sightsaver.wsgi.application'
 
 DATABASES = {
      'default' :{
-        'ENGINE': env('DB_ENGINE'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'HOST':env('DB_HOST'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'PORT':env('DB_PORT'),
+        'ENGINE': os.getenv('DB_ENGINE'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'HOST':os.getenv('DB_HOST'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'PORT':os.getenv('DB_PORT'),
      }
     
 }
