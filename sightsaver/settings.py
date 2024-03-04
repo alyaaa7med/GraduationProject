@@ -93,7 +93,7 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "Sight Saver API",
     "DESCRIPTION": DESCRIPTION,
     "VERSION": "1.0.0",
-    # "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
 }
 
 
