@@ -28,7 +28,7 @@ SECRET_KEY =os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ['alyaaahmed.pythonanywhere.com','localhost:8000','127.0.0.1:8000']
+ALLOWED_HOSTS = ['alyaaahmed.pythonanywhere.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # External app 
     'rest_framework',
+    'drf_spectacular',
+
 
     # Internal app
     'accounts.apps.AccountsConfig',
@@ -58,12 +60,50 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+
+      
+}
+
+DESCRIPTION = """Documentation of API endpoints of Sight Saver
+
+Handle Error Codes:
+```json
+    400: "Bad request.",
+    401: "Unauthorized.",
+    404: "Not found.",
+    405: "Method not allowed.",
+    500: "Internal server error.",
+    200: "OK.",
+    201: "Created.",
+    202: "Accepted.",
+```
+
+Example:
+```json
+    {
+        "status_code": 400,
+        "exception_class": "ValidationError",
+        "error_message": "Bad request."
+    }
+```
+"""
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Sight Saver API",
+    "DESCRIPTION": DESCRIPTION,
+    "VERSION": "1.0.0",
+    # "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
+}
+
+
+
 ROOT_URLCONF = 'sightsaver.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [], # i do not add the template url 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
