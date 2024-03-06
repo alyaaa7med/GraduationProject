@@ -12,7 +12,7 @@ class User(AbstractBaseUser,PermissionsMixin) :
         ('guest','Guest')
     ] 
     name = models.CharField(max_length=200)
-    email=models.EmailField(max_length=250,unique=True) # should be unique 
+    email=models.EmailField(max_length=250,unique=True,blank=False,null = False) # should be unique 
     password = models.CharField(max_length=150)  # Increase the maximum length to 128 characters
     is_staff = models.BooleanField(default=False)
     is_active=models.BooleanField(default=True)  
@@ -20,7 +20,7 @@ class User(AbstractBaseUser,PermissionsMixin) :
 
 
     USERNAME_FIELD= "email"
-    REQUIRED_FIELDS= ["name"]  # required fields you need to create an account
+    REQUIRED_FIELDS= ["name","password"]  # required fields you need to create an account
 
     objects = CustomUserManger()
 
@@ -51,6 +51,7 @@ class Doctor(models.Model):
     gender= models.CharField(max_length=7,default='unknown')
     image = models.ImageField(upload_to="accounts/images/%Y/%m/%d/%H/%M/%S/", null=True, default="accounts/images/carton.png")
 
+    REQUIRED_FIELDS= ["phone","syndicateNo","university","specialization"]  # null = False + blank = False 
 
 
 class Patient(models.Model):
@@ -58,3 +59,5 @@ class Patient(models.Model):
     phone= models.CharField(max_length=15,null=True)
     birthdate = models.DateField()
     gender= models.CharField(max_length=7,default='unknown')
+
+    REQUIRED_FIELDS= ["phone"]  # null = False + blank = False 

@@ -9,7 +9,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id','name','email','password'] # i removed the id after i check the 2 models are correct 
+        fields = ['id','name','email','password'] 
 
     def create(self, validated_data):
         password = validated_data.pop("password", None)
