@@ -43,8 +43,8 @@ class otpcode(models.Model):
 # not all relations have been added ^_^    
 class Doctor(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    phone= models.CharField(max_length=15,null=True)
-    syndicateNo = models.CharField(max_length=15, blank=False , null = False)
+    phone= models.CharField(max_length=15)
+    syndicateNo = models.CharField(max_length=15)
     university = models.CharField(max_length=30)
     specialization = models.CharField(max_length=255)
     work_experience= models.CharField(max_length=255)
@@ -56,7 +56,7 @@ class Doctor(models.Model):
 
 class Patient(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    phone= models.CharField(max_length=15,null=True)
+    phone= models.CharField(max_length=15)
     birthdate = models.DateField()
     gender= models.CharField(max_length=7,default='unknown')
 
