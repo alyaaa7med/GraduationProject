@@ -61,10 +61,9 @@ class DoctorSerializer(serializers.ModelSerializer):
    
     
 class PatientSerializer(serializers.ModelSerializer):
-
-    user = CreateUserSerializer()   
+ 
+    user= CreateUserSerializer() 
     confirm_password = serializers.CharField(write_only=True, required=True)
-
     class Meta : 
         model = Patient
         fields =['id','user','confirm_password','gender','birthdate']
@@ -82,3 +81,6 @@ class PatientSerializer(serializers.ModelSerializer):
         patient = Patient.objects.create(user=user,**validated_data) 
         return patient
 
+   
+
+   
