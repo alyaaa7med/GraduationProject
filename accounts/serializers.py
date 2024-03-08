@@ -2,6 +2,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import Doctor , Patient 
+from django.contrib.auth.hashers import make_password
+
 User = get_user_model()
 
 
@@ -52,7 +54,12 @@ class DoctorSerializer(serializers.ModelSerializer):
     # during deserialization 
     def create(self, validated_data): # validated data = user + doctor 
         user_data = validated_data.pop('user') # This line extracts the nested user data from the validated data dictionary. Since user is a nested serializer field, it's removed from validated_data and stored separately in user_data.
+        password = user_data.get('password')
         validated_data.pop('confirm_password') # Remove 'confirm_password' from the data
+
+        hashed_password = make_password(password)  # Hash the password
+        user_data['password'] = hashed_password
+
         user = User.objects.create(**user_data, role='doctor') # Here, a new User instance is created using the extracted user data (user_data). Additionally, the role attribute is set to 'doctor', indicating that this user instance represents a doctor.
         doctor = Doctor.objects.create(user=user,**validated_data)  # validated data does not have user 
         return doctor
@@ -76,11 +83,22 @@ class PatientSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data): 
         user_data = validated_data.pop('user') 
+        password = user_data.get('password')
         validated_data.pop('confirm_password') # Remove 'confirm_password' from the data
+        
+        hashed_password = make_password(password)  # Hash the password
+        user_data['password'] = hashed_password
+        
         user = User.objects.create(**user_data, role='patient')
         patient = Patient.objects.create(user=user,**validated_data) 
         return patient
 
-   
+
+class EmailSerializerr (serializers.ModelSerializer):
+    class Meta : 
+        model = User
+        fields = ['email']
+
+
 
    

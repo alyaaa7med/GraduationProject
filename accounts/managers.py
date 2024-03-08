@@ -1,7 +1,9 @@
-from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.base_user import BaseUserManager 
 from django.core.exceptions import ValidationError 
 from django.core.validators import validate_email
 from django.utils.translation import gettext_lazy as _ 
+from django.contrib.auth.hashers import make_password
+
 
 # customize user manager 
 class CustomUserManger(BaseUserManager):
@@ -28,10 +30,10 @@ class CustomUserManger(BaseUserManager):
             **extra_fields 
         )
 
-        user.set_password(password)  # hashing the password 
+        user.password = make_password(password) 
         extra_fields.setdefault("is_staff",False)
         extra_fields.setdefault("is_superuser",False)
-        user.save()
+        user.save(using=self._db)
         return user
 
     

@@ -54,6 +54,7 @@ class Doctor(models.Model):
     REQUIRED_FIELDS= ["phone","syndicateNo","university","specialization"]  # null = False + blank = False 
 
 
+
 class Patient(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     phone= models.CharField(max_length=15)
@@ -61,3 +62,5 @@ class Patient(models.Model):
     gender= models.CharField(max_length=7,default='unknown')
 
     REQUIRED_FIELDS= ["phone"]  # null = False + blank = False 
+
+
